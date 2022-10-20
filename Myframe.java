@@ -59,7 +59,7 @@ public class Myframe extends JFrame
 
     MyDialog dialog;
 
-    int index = 0;
+//    int index = 0;
 
     MyTableModel tableModel;
     JTable table;
@@ -84,8 +84,8 @@ public class Myframe extends JFrame
         
         //======================= setting up the JTable to view //===================================================
 
-
-        tableModel = new MyTableModel();
+        justAListModel = new MyListModel();
+        tableModel = new MyTableModel(justAListModel);
         table = new JTable(tableModel);
         table.setFont(new Font("Courtier New", Font.BOLD, 14));
         table.setMinimumSize(new Dimension(400,250));
@@ -226,7 +226,7 @@ public class Myframe extends JFrame
     {
     
 
-        dialog = new MyDialog(justAListModel);
+        dialog = new MyDialog(tableModel);
 
     }
 
@@ -234,21 +234,22 @@ public class Myframe extends JFrame
     {
 
 
-        index = displayList.getSelectedIndex();
+/*         index = displayList.getSelectedIndex();
         record = justAListModel.elementAt(index);
-        dialog = new MyDialog(justAListModel, record, index);
+        dialog = new MyDialog(tableModel, record, index);
+        */
+        int index;
+        index = table.getSelectedRow();
+        System.out.println(index + "       " +  justAListModel.size() + "\n");
+        record = justAListModel.elementAt(index);
+        dialog = new MyDialog(tableModel, record, table.convertRowIndexToModel(index));
     }
 
     void handleDelete()
     {
-        int index[];
-        index = displayList.getSelectedIndices();
-        for(int n  = index.length-1; n >= 0; n--)
-        {
-            justAListModel.removeElementAt(index[n]);
-            justAListModel.numberOfTripRecords -= 1;
-            System.out.println("There are " + justAListModel.numberOfTripRecords + " record in the list");
-        }
+        int rowsToDelete[];
+        rowsToDelete = table.getSelectedRows();
+        tableModel.deleteElement(rowsToDelete, table);
     }
 
     void handleSaveAs()
@@ -347,7 +348,8 @@ public class Myframe extends JFrame
     void handleadd_random()
     {
 
-        justAListModel.addElement(TripRecord.getRandom()); // adds a random instance of triprecord
+        tableModel.addElement(TripRecord.getRandom()); // adds a random instance of triprecord
+        justAListModel.numberOfTripRecords++;
 
     }
 
@@ -355,7 +357,7 @@ public class Myframe extends JFrame
     {
         toolkit = Toolkit.getDefaultToolkit();                      // used to help get the users screen size
         screenSize = toolkit.getScreenSize();                       //get the users screen size
-        setSize(screenSize.width/3, screenSize.height/3);           // makes JFrame 1/3 the users screensize
+        setSize(screenSize.width/2, screenSize.height/2);           // makes JFrame 1/2 the users screensize
         setLocationRelativeTo(null);                             // window is placed in the center of screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);            //when close frame the program stops
         setTitle("Project 2 part 3 Ambulance Trip Record");
@@ -437,7 +439,7 @@ public class Myframe extends JFrame
     @Override
     public void mousePressed(MouseEvent e) 
     {
-        if(displayList.getSelectedValue() != null)
+        if(table.getSelectedRow() != -1)
         {
             edit.setEnabled(true);
         }

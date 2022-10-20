@@ -3,15 +3,16 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
 public class MyTableModel extends AbstractTableModel
+                            implements DataManager
 {
     //======================================DATA MEMBERS ===================================================================
-    MyListModel listmodel;
+    MyListModel listModel;
 
     //=====================================CONSTRUCTOR =====================================================================
 
-    MyTableModel()
+    MyTableModel(MyListModel listModel)
     {
-        listmodel = new MyListModel();
+        this.listModel = listModel;
     }
 
     //====================================  METHODS ===========================================================================
@@ -20,7 +21,7 @@ public class MyTableModel extends AbstractTableModel
     public int getRowCount() 
     {
         
-        return listmodel.getSize();
+        return listModel.getSize();
     }
 
     @Override
@@ -35,7 +36,7 @@ public class MyTableModel extends AbstractTableModel
     {
         
         TripRecord record;
-        record = listmodel.getElementAt(rowIndex);
+        record = listModel.getElementAt(rowIndex);
 
         if(columnIndex == 0)
         {
@@ -78,7 +79,6 @@ public class MyTableModel extends AbstractTableModel
     public Class getColumnClass(int c)
     {
 
-   //     return getValueAt(0, c).getClass();
         if(c == 0)
         {
             return Date.class;
@@ -117,7 +117,7 @@ public class MyTableModel extends AbstractTableModel
     public void setValueAt(Object value, int row, int col)
     {
         TripRecord record;
-        record = (TripRecord)listmodel.elementAt(row);
+        record = (TripRecord)listModel.elementAt(row);
 
         if(col == 0)
         {
@@ -152,6 +152,36 @@ public class MyTableModel extends AbstractTableModel
             System.out.println("Unexpected problem! \n");
         }
         fireTableCellUpdated(row, col);
+    }
+
+    void addElement(TripRecord record)
+    {
+        listModel.addElement(record);
+        fireTableDataChanged();
+    }
+
+    void deleteElement(int rowsToDelete[],JTable table)
+    {
+        for(int n  = rowsToDelete.length-1; n >= 0; n--)
+        {
+            listModel.removeElementAt(table.convertRowIndexToModel(rowsToDelete[n]));
+            listModel.numberOfTripRecords -= 1;
+            System.out.println("There are " + listModel.numberOfTripRecords + " record in the list");
+            fireTableDataChanged();
+        }
+    }
+
+    @Override
+    public void add(TripRecord rec) 
+    {
+        addElement(rec);
+        
+    }
+
+    @Override
+    public void replace(TripRecord rec, int index) 
+    {
+        listModel.setElementAt(rec, index);
     }
     
 }

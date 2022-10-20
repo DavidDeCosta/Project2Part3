@@ -8,8 +8,6 @@ import javax.swing.JTextField;
 public class DateVerifier extends InputVerifier
 {
 
-
-
     @Override
     public boolean verify(JComponent input) {
 

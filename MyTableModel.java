@@ -171,6 +171,12 @@ public class MyTableModel extends AbstractTableModel
         }
     }
 
+    void replaceElement(TripRecord rec, int index)
+    {
+        listModel.setElementAt(rec, index);
+        fireTableDataChanged();
+    }
+
     @Override
     public void add(TripRecord rec) 
     {
@@ -181,7 +187,9 @@ public class MyTableModel extends AbstractTableModel
     @Override
     public void replace(TripRecord rec, int index) 
     {
-        listModel.setElementAt(rec, index);
+//        listModel.setElementAt(rec, index);
+        replaceElement(rec, index);
+       // System.out.println("I am trying to replace at index: " + index);
     }
     
 }

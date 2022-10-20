@@ -192,7 +192,7 @@ public class Myframe extends JFrame
         }
         else if(e.getActionCommand().equals("edit"))
         {
-            handleEdit();
+            handleReplace();
         }
         else if(e.getActionCommand().equals("saveAs"))
         {
@@ -224,32 +224,26 @@ public class Myframe extends JFrame
 
     void handleAdd()
     {
-    
-
         dialog = new MyDialog(tableModel);
-
     }
 
-    void handleEdit()
+    void handleReplace()
     {
-
-
-/*         index = displayList.getSelectedIndex();
-        record = justAListModel.elementAt(index);
-        dialog = new MyDialog(tableModel, record, index);
-        */
         int index;
         index = table.getSelectedRow();
         System.out.println(index + "       " +  justAListModel.size() + "\n");
         record = justAListModel.elementAt(index);
         dialog = new MyDialog(tableModel, record, table.convertRowIndexToModel(index));
+//        dialog = new MyDialog(tableModel, record, index);
     }
 
     void handleDelete()
     {
         int rowsToDelete[];
         rowsToDelete = table.getSelectedRows();
+        int num = table.getSelectedRow();     // to see what row im deleting
         tableModel.deleteElement(rowsToDelete, table);
+        System.out.println("Deleted record at index: " + num );
     }
 
     void handleSaveAs()

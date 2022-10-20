@@ -204,11 +204,11 @@ public class MyDialog extends JDialog
         }
         else if(e.getActionCommand().equals("Edit"))
         {
-            handleEdit();
+            handleReplace();
         }
     }
 
-    void handleEdit()
+    void handleReplace()
     {
         String tempForMileage;
         String tempforBilling;
@@ -265,6 +265,8 @@ public class MyDialog extends JDialog
         tempDate = dateTF.getText();
         record.date = convertStringToDate(tempDate);
         dataManager.replace(record,index);
+        
+        dispose();
 
     }
 }

@@ -348,6 +348,7 @@ public class Myframe extends JFrame
     {
 
         justAListModel.addElement(TripRecord.getRandom()); // adds a random instance of triprecord
+
     }
 
     void buildMainFrame()
@@ -357,7 +358,7 @@ public class Myframe extends JFrame
         setSize(screenSize.width/3, screenSize.height/3);           // makes JFrame 1/3 the users screensize
         setLocationRelativeTo(null);                             // window is placed in the center of screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);            //when close frame the program stops
-        setTitle("Project 3 Ambulance Trip Record");
+        setTitle("Project 2 part 3 Ambulance Trip Record");
         setVisible(true);
     }
 

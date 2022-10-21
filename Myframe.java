@@ -94,6 +94,7 @@ public class Myframe extends JFrame
         tripScrollPane = new JScrollPane(table);
         table.setPreferredScrollableViewportSize(new Dimension(400,250));
         table.setRowSorter(new TableRowSorter<>(tableModel));
+        tripScrollPane.addMouseListener(this);                 //by adding to tripscrollpane instead of table it doesnt affect the JDialog
         add(tripScrollPane, BorderLayout.CENTER);
 
         
@@ -425,7 +426,10 @@ public class Myframe extends JFrame
     @Override
     public void mouseClicked(MouseEvent e) 
     {
-        
+        if(e.getClickCount() == 2)
+        {
+            handleReplace();
+        }
         
     }
 

@@ -333,7 +333,7 @@ public class MyDialog extends JDialog
         record.date = convertStringToDate(tempDate);
         dataManager.add(record);
         }
-        
+        dispose();
     }
 
     Date convertStringToDate(String stringOfDate)

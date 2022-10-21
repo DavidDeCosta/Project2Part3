@@ -15,7 +15,7 @@ public class MyListModel extends DefaultListModel<TripRecord>
         
     }
 
-    MyListModel(DataInputStream dis)
+/*   MyListModel(DataInputStream dis)
     {
         try 
         {
@@ -29,8 +29,9 @@ public class MyListModel extends DefaultListModel<TripRecord>
         {
             JOptionPane.showMessageDialog(null, "Could not read file");
         }
+        
     }
-
+ */ 
 //==========================================Methods // ============================================================
 
 

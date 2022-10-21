@@ -1,3 +1,5 @@
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -152,6 +154,23 @@ public class MyTableModel extends AbstractTableModel
             System.out.println("Unexpected problem! \n");
         }
         fireTableCellUpdated(row, col);
+    }
+
+    void loadFromFile(DataInputStream dis)
+    {
+        try 
+        {
+            listModel.numberOfTripRecords = dis.readInt();               //tells us how many names are stored
+            for(int n = 0; n < listModel.numberOfTripRecords; n++)
+            {
+                addElement(new TripRecord(dis));               //put the element from a file into the JList
+            }
+        } 
+        catch (IOException e) 
+        {
+            JOptionPane.showMessageDialog(null, "Could not read file");
+        }
+        
     }
 
     void addElement(TripRecord record)

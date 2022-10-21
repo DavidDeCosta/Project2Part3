@@ -329,7 +329,8 @@ public class Myframe extends JFrame
             try
             {
                 dis = new DataInputStream(new FileInputStream(theFileChooser.getSelectedFile()));
-                justAListModel = new MyListModel(dis);
+//                justAListModel = new MyListModel(dis);
+                tableModel.loadFromFile(dis);
                 displayList.setModel(justAListModel);
 
             }
@@ -345,6 +346,7 @@ public class Myframe extends JFrame
 
         tableModel.addElement(TripRecord.getRandom()); // adds a random instance of triprecord
         justAListModel.numberOfTripRecords++;
+        System.out.println("number of records are: " + justAListModel.numberOfTripRecords + "\n");
 
     }
 

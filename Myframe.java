@@ -5,9 +5,11 @@ import java.awt.event.*;                       // for ActionListener
 import java.io.*;
 import java.awt.*;                             // for Dimension and Toolkit
 import java.util.Date;
+import java.awt.dnd.*;
+import java.awt.datatransfer.*;
 
 public class Myframe extends JFrame
-                        implements ActionListener, ListSelectionListener, MouseInputListener
+                        implements ActionListener, ListSelectionListener, MouseInputListener, DropTargetListener
 {
     //=======================================DATA MEMBERS =====================================================
 
@@ -63,6 +65,8 @@ public class Myframe extends JFrame
 
     MyTableModel tableModel;
     JTable table;
+
+    DropTarget dropTarget;
 
 
 
@@ -177,6 +181,8 @@ public class Myframe extends JFrame
         clear.addActionListener(this);
 
         table.addMouseListener(this);
+
+        dropTarget = new DropTarget(tripScrollPane, this);
  
     }
 
@@ -331,7 +337,7 @@ public class Myframe extends JFrame
                 dis = new DataInputStream(new FileInputStream(theFileChooser.getSelectedFile()));
 //                justAListModel = new MyListModel(dis);
                 tableModel.loadFromFile(dis);
-                displayList.setModel(justAListModel);
+              //  displayList.setModel(justAListModel);
 
             }
             catch(FileNotFoundException e)
@@ -483,6 +489,81 @@ public class Myframe extends JFrame
     public void mouseMoved(MouseEvent e) 
     {
         
+        
+    }
+
+
+    @Override
+    public void dragEnter(DropTargetDragEvent dtde) 
+    {
+        
+    }
+
+
+    @Override
+    public void dragOver(DropTargetDragEvent dtde) 
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public void dropActionChanged(DropTargetDragEvent dtde) 
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public void dragExit(DropTargetEvent dte) 
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public void drop(DropTargetDropEvent dtde) 
+    {
+        
+        java.util.List<File> fileList;
+        Transferable transferableData;
+        int n;
+        DataInputStream dis;
+
+        transferableData = dtde.getTransferable();
+
+        try
+        {
+            if(transferableData.isDataFlavorSupported(DataFlavor.javaFileListFlavor))
+            {
+                dtde.acceptDrop(DnDConstants.ACTION_COPY);
+
+                fileList = (java.util.List<File>)(transferableData.getTransferData(DataFlavor.javaFileListFlavor));
+         //       dis = new DataInputStream(new FileInputStream(fileList));
+                
+                for(n =0; n<fileList.size(); n++)
+                {
+                    tableModel.addElement(record);
+                }
+            }
+            else
+            {
+                System.out.println("Sorry we don't have this flavor \n");
+            }
+        }
+        catch(UnsupportedFlavorException ufe)
+        {
+            System.out.println("Unsupported favor found! \n");
+            ufe.printStackTrace();
+        }
+        catch(IOException ioe)
+        {
+            System.out.println("IOexception found getting transferable data!");
+            ioe.printStackTrace();
+        }
         
     }
 

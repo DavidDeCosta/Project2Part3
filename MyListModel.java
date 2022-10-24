@@ -7,7 +7,6 @@ public class MyListModel extends DefaultListModel<TripRecord>
 
     //======================================DATA MEMBERS ========================================================
     int numberOfTripRecords = 0;                             // keeping track of the number of names added
-    MyTableModel table;
 
     //=======================================Constructors ==========================================================
     MyListModel()

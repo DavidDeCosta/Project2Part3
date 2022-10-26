@@ -116,16 +116,20 @@ public class Myframe extends JFrame
 
         load = new JButton("load");
         load.addActionListener(this);
+        load.setMnemonic('o');
+        load.setToolTipText("alt + o");
         southPanel.add(load);
 
         save = new JButton("save");
         save.addActionListener(this);
+        save.setToolTipText("alt + s");
+        save.setMnemonic('s');             //press alt + d to delete
         southPanel.add(save);
 
         saveAs = new JButton("saveAs");
         southPanel.add(saveAs);
-        saveAs.setToolTipText("alt + s");
-        saveAs.setMnemonic('s');             //press alt + d to delete
+        saveAs.setToolTipText("alt + a");
+        saveAs.setMnemonic('a');             //press alt + d to delete
         saveAs.addActionListener(this);
 
         add = new JButton("add");
@@ -236,11 +240,21 @@ public class Myframe extends JFrame
         else if(e.getActionCommand().equals("clear"))
         {
             justAListModel.clear();
+            tableModel.fireTableDataChanged();
             justAListModel.numberOfTripRecords = 0;                    //sets the list to empty
         }
         else if(e.getActionCommand().equals("add_random"))
         {
             handleadd_random();
+            tableModel.unSavedChanges = true;
+        }
+        else if(e.getActionCommand().equals("deleteFromPopUp"))
+        {
+            handleDelete();
+        }
+        else if(e.getActionCommand().equals("editFromPopUp"))
+        {
+            handleReplace();
         }
         
     }
@@ -450,10 +464,27 @@ public class Myframe extends JFrame
     @Override
     public void mouseClicked(MouseEvent e) 
     {
+        if(e.getSource().equals(table))
+        {
+        JTable source = (JTable)e.getSource();
+        int row = source.rowAtPoint( e.getPoint() );
+        source.setRowSelectionInterval(row, row);
+
         if(e.getClickCount() == 2)
         {
             handleReplace();
         }
+
+        if(e.getButton() == 3)
+        {
+            popUpMenu.show(this,e.getX(),e.getY());
+        }
+    }
+    else
+    {
+
+    }
+        System.out.println("number = " + e.getButton());
         
     }
 
@@ -558,11 +589,14 @@ public class Myframe extends JFrame
                 dtde.acceptDrop(DnDConstants.ACTION_COPY);
 
                 fileList = (java.util.List<File>)(transferableData.getTransferData(DataFlavor.javaFileListFlavor));
-         //       dis = new DataInputStream(new FileInputStream(fileList));
-                
-                for(n =0; n<fileList.size(); n++)
+                if(fileList.size() == 1)
                 {
-                    tableModel.addElement(record);
+                    dis = new DataInputStream(new FileInputStream(fileList.get(0)));
+                    tableModel.loadFromFile(dis);
+                }
+                else
+                {
+                    System.out.println("too many files \n");
                 }
             }
             else

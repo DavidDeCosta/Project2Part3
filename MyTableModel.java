@@ -9,6 +9,7 @@ public class MyTableModel extends AbstractTableModel
 {
     //======================================DATA MEMBERS ===================================================================
     MyListModel listModel;
+    boolean unSavedChanges = false;
 
     //=====================================CONSTRUCTOR =====================================================================
 
@@ -156,8 +157,34 @@ public class MyTableModel extends AbstractTableModel
         fireTableCellUpdated(row, col);
     }
 
-    void loadFromFile(DataInputStream dis)
+    void loadFromFile(DataInputStream dis){
+
+        int response;
+
+    if(unSavedChanges != true )
     {
+        handleLoad(dis);
+    }
+    else
+    {
+         response = JOptionPane.showConfirmDialog(null, "Confirm", "Changes unsaved, Load still?", JOptionPane.YES_NO_OPTION);
+        if(JOptionPane.NO_OPTION == response)
+        {
+            System.out.println("Do nothing");
+        }
+        else
+        {
+            handleLoad(dis);
+        }
+    }
+        
+    }
+
+    void handleLoad(DataInputStream dis)
+    {
+        listModel.clear();
+        fireTableDataChanged();
+        unSavedChanges = false;                                       //added so it doesnt always ask after you save a new list
         try 
         {
             listModel.numberOfTripRecords = dis.readInt();               //tells us how many names are stored
@@ -170,7 +197,6 @@ public class MyTableModel extends AbstractTableModel
         {
             JOptionPane.showMessageDialog(null, "Could not read file");
         }
-        
     }
 
     void addElement(TripRecord record)

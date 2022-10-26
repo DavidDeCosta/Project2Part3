@@ -37,10 +37,8 @@ public class TripRecord {
 
     }
 
-    TripRecord(DataInputStream dis)
+    TripRecord(DataInputStream dis) throws IOException
     {
-        try 
-        {
             this.date = new Date(dis.readLong());
             this.name = dis.readUTF();
             this.serviceCode = dis.readUTF();
@@ -48,11 +46,7 @@ public class TripRecord {
             this.mileageOnReturn = dis.readInt();
             this.billingRate = dis.readDouble();
             this.comments = dis.readUTF();
-        } 
-        catch (IOException e) 
-        {
-            JOptionPane.showMessageDialog(null, "Could not read name");
-        }
+
 
     }
 

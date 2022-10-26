@@ -1,5 +1,6 @@
 import javax.swing.*;                           //for JButton
 import javax.swing.event.*;                    //for ChangeListener
+import javax.swing.plaf.PopupMenuUI;
 import javax.swing.table.*;
 import java.awt.event.*;                       // for ActionListener
 import java.io.*;
@@ -67,6 +68,10 @@ public class Myframe extends JFrame
     JTable table;
 
     DropTarget dropTarget;
+
+    JPopupMenu popUpMenu;
+    JMenuItem editFromPopUp;
+    JMenuItem deleteFromPopUp;
 
 
 
@@ -181,6 +186,17 @@ public class Myframe extends JFrame
         clear.addActionListener(this);
 
         table.addMouseListener(this);
+
+
+        popUpMenu = new JPopupMenu();
+        editFromPopUp = new JMenuItem("edit");
+        editFromPopUp.addActionListener(this);
+        deleteFromPopUp = new JMenuItem("delete");
+        deleteFromMenu.addActionListener(this);
+
+        popUpMenu.add(editFromPopUp);
+        popUpMenu.add(deleteFromMenu);
+
 
         dropTarget = new DropTarget(tripScrollPane, this);
  

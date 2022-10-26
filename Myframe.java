@@ -239,9 +239,18 @@ public class Myframe extends JFrame
         }
         else if(e.getActionCommand().equals("clear"))
         {
-            justAListModel.clear();
-            tableModel.fireTableDataChanged();
-            justAListModel.numberOfTripRecords = 0;                    //sets the list to empty
+            int response;
+            response = JOptionPane.showConfirmDialog(null, "Confirm", "Delete Everything?", JOptionPane.YES_NO_OPTION);
+            if(JOptionPane.NO_OPTION == response)
+            {
+                System.out.println("Do nothing");
+            }
+            else
+            {
+                justAListModel.clear();
+                tableModel.fireTableDataChanged();
+                justAListModel.numberOfTripRecords = 0;                    //sets the list to empty
+            }
         }
         else if(e.getActionCommand().equals("add_random"))
         {
@@ -596,6 +605,7 @@ public class Myframe extends JFrame
                 }
                 else
                 {
+                    JOptionPane.showMessageDialog(this, "Too Many Files.");
                     System.out.println("too many files \n");
                 }
             }

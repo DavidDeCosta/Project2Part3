@@ -376,44 +376,44 @@ public class Myframe extends JFrame
         colModel = new DefaultTableColumnModel();
 
         col = new TableColumn(0);
-        col.setPreferredWidth(50);
-        col.setMinWidth(50);
+        col.setPreferredWidth(20);
+        col.setMinWidth(20);
         col.setHeaderValue("Date");
         colModel.addColumn(col);
 
         col = new TableColumn(1);
         col.setPreferredWidth(10);
-        col.setMinWidth(20);
+        col.setMinWidth(10);
         col.setHeaderValue("Name");
         colModel.addColumn(col);
 
         col = new TableColumn(2);
         col.setPreferredWidth(10);
-        col.setMinWidth(20);
+        col.setMinWidth(10);
         col.setHeaderValue("Service Code");
         colModel.addColumn(col);
 
         col = new TableColumn(3);
         col.setPreferredWidth(10);
-        col.setMinWidth(20);
+        col.setMinWidth(10);
         col.setHeaderValue("Initial Mileage");
         colModel.addColumn(col);
 
         col = new TableColumn(4);
         col.setPreferredWidth(10);
-        col.setMinWidth(20);
+        col.setMinWidth(10);
         col.setHeaderValue("Mileage On Return");
         colModel.addColumn(col);
 
         col = new TableColumn(5);
         col.setPreferredWidth(10);
-        col.setMinWidth(20);
+        col.setMinWidth(10);
         col.setHeaderValue("Billing Rate");
         colModel.addColumn(col);
 
         col = new TableColumn(6);
-        col.setPreferredWidth(10);
-        col.setMinWidth(20);
+        col.setPreferredWidth(30);
+        col.setMinWidth(30);
         col.setHeaderValue("Comments");
         colModel.addColumn(col);
 

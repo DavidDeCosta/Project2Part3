@@ -49,7 +49,6 @@ public class MyDialog extends JDialog
     double billingRate;
 
     DataManager dataManager;
-    MyListModel justAListModel;
 
     
     SimpleDateFormat sdf;
@@ -252,7 +251,7 @@ public class MyDialog extends JDialog
         }
         else{
 
-        record = new TripRecord(name, date,serviceCode,initialMileage,mileageOnReturn,billingRate, comments );
+        record = new TripRecord();
         record.name = nameTF.getText();
         record.serviceCode = (String)comboBox.getSelectedItem();
         record.comments = commentsTF.getText();
@@ -318,7 +317,7 @@ public class MyDialog extends JDialog
         }
         else{
 
-        record = new TripRecord(name, date,serviceCode,initialMileage,mileageOnReturn,billingRate, comments );
+        record = new TripRecord();
         record.name = nameTF.getText();
         record.serviceCode = (String)comboBox.getSelectedItem();
         record.comments = commentsTF.getText();

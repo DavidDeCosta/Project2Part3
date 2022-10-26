@@ -37,12 +37,6 @@ public class TripRecord {
 
     }
 
-    TripRecord(String name, long date, String serviceCode, int initialMileage, int mileageOnReturn,
-                double billingRate, String comments)
-    {
-        
-    }
-
     TripRecord(DataInputStream dis)
     {
         try 

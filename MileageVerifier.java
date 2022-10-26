@@ -4,8 +4,6 @@ import javax.swing.JTextField;
 
 public class MileageVerifier extends InputVerifier
 {
-
-
     @Override
     public boolean verify(JComponent input) 
     {

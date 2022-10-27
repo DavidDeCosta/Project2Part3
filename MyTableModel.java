@@ -167,7 +167,7 @@ public class MyTableModel extends AbstractTableModel
     }
     else
     {
-         response = JOptionPane.showConfirmDialog(null, "Confirm", "Changes unsaved, Load still?", JOptionPane.YES_NO_OPTION);
+        response = JOptionPane.showConfirmDialog(null, "Confirm", "Changes unsaved, Load still?", JOptionPane.YES_NO_OPTION);
         if(JOptionPane.NO_OPTION == response)
         {
             System.out.println("Do nothing");
@@ -232,9 +232,7 @@ public class MyTableModel extends AbstractTableModel
     @Override
     public void replace(TripRecord rec, int index) 
     {
-//        listModel.setElementAt(rec, index);
         replaceElement(rec, index);
-       // System.out.println("I am trying to replace at index: " + index);
     }
     
 }

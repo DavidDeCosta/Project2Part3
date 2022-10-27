@@ -118,43 +118,51 @@ public class Myframe extends JFrame
         load.addActionListener(this);
         load.setMnemonic('o');
         load.setToolTipText("alt + o");
+        load.setRolloverEnabled( false );
         southPanel.add(load);
 
         save = new JButton("save");
         save.addActionListener(this);
         save.setToolTipText("alt + s");
         save.setMnemonic('s');             //press alt + d to delete
+        save.setRolloverEnabled( false );
         southPanel.add(save);
 
         saveAs = new JButton("saveAs");
         southPanel.add(saveAs);
         saveAs.setToolTipText("alt + a");
         saveAs.setMnemonic('a');             //press alt + d to delete
+        saveAs.setRolloverEnabled( false );
         saveAs.addActionListener(this);
 
         add = new JButton("add");
         add.addActionListener(this);
         add.setToolTipText("alt+a , add name");
         add.setMnemonic('A');                //press alt + a to add
+        add.setRolloverEnabled( false );
         southPanel.add(add);
 
         edit = new JButton("edit");
         edit.addActionListener(this);
         edit.setEnabled(false);
+        edit.setRolloverEnabled( false );
         southPanel.add(edit);
 
         delete = new JButton("delete");
         delete.addActionListener(this);
         delete.setToolTipText("alt + d, to delete");
         delete.setMnemonic('d');             //press alt + d to delete
+        delete.setRolloverEnabled( false );
         southPanel.add(delete);
 
         add_random = new JButton("add_random");
         add_random.addActionListener(this);
+        add_random.setRolloverEnabled( false );
         southPanel.add(add_random);
 
         exit = new JButton("exit");
         exit.addActionListener(this);
+        exit.setRolloverEnabled( false );
         southPanel.add(exit);
 
 
@@ -201,6 +209,8 @@ public class Myframe extends JFrame
         popUpMenu.add(editFromPopUp);
         popUpMenu.add(deleteFromMenu);
 
+        
+
 
         dropTarget = new DropTarget(tripScrollPane, this);
  
@@ -211,7 +221,23 @@ public class Myframe extends JFrame
         
         if(e.getActionCommand().equals("exit"))
         {
-            this.dispose();
+            int response;
+            if(tableModel.unSavedChanges == true)
+            {
+            response = JOptionPane.showConfirmDialog(null, "Confirm", "exit without saving?", JOptionPane.YES_NO_OPTION);
+                if(JOptionPane.NO_OPTION == response)
+                {
+                    System.out.println("Do nothing");
+                }
+                else
+                {
+                    this.dispose();
+                }
+            }
+            else
+            {
+                this.dispose();
+            }
         }
         else if(e.getActionCommand().equals("add"))
         {
@@ -299,7 +325,8 @@ public class Myframe extends JFrame
         File theFileTheUserChooses2;
         DataOutputStream dos;                                          // will pass the File to the dos
 
-        savedOrNot = theFileChooser.showSaveDialog(null);     // if returns 0 they saved file if 1 they exited
+        savedOrNot = theFileChooser.showSaveDialog(this);     // if returns 0 they saved file if 1 they exited
+        theFileChooser.setDragEnabled( false );
         if(savedOrNot == JFileChooser.APPROVE_OPTION)
         {
             theFileTheUserChooses = theFileChooser.getSelectedFile();           //grabs the file the user types or selected
@@ -314,6 +341,7 @@ public class Myframe extends JFrame
                     theFileTheUserChooses = theFileChooser.getSelectedFile();           //grabs the file the user types or selected
                     dos = new DataOutputStream(new FileOutputStream(theFileTheUserChooses));     //form a dos with the file
                     justAListModel.store(dos);                                                   // store it to write to later
+                    tableModel.unSavedChanges = false;
                 }
                 catch (FileNotFoundException e1) 
                 {
@@ -332,6 +360,7 @@ public class Myframe extends JFrame
                     theFileTheUserChooses2 = theFileChooser.getSelectedFile();           //grabs the file the user types or selected
                     dos = new DataOutputStream(new FileOutputStream(theFileTheUserChooses));     //form a dos with the file
                     justAListModel.store(dos);                                                   // store it to write to later
+                    tableModel.unSavedChanges = false;
                 }
                 catch (FileNotFoundException e1) 
                 {
@@ -355,6 +384,7 @@ public class Myframe extends JFrame
             {
                 dos = new DataOutputStream(new FileOutputStream(theFileChooser.getSelectedFile()));     //form a dos with the file
                 justAListModel.store(dos);                                                   // store it to write to later
+                tableModel.unSavedChanges = false;
             }
             catch (FileNotFoundException e1) 
             {
@@ -367,16 +397,14 @@ public class Myframe extends JFrame
     {
         DataInputStream dis;
         int fileChooser;
-        fileChooser = theFileChooser.showOpenDialog(null);
-
+        
+        fileChooser = theFileChooser.showOpenDialog(this);
         if(fileChooser == JFileChooser.APPROVE_OPTION)
         {
             try
             {
                 dis = new DataInputStream(new FileInputStream(theFileChooser.getSelectedFile()));
-//                justAListModel = new MyListModel(dis);
                 tableModel.loadFromFile(dis);
-              //  displayList.setModel(justAListModel);
 
             }
             catch(FileNotFoundException e)
@@ -392,6 +420,8 @@ public class Myframe extends JFrame
         tableModel.addElement(TripRecord.getRandom()); // adds a random instance of triprecord
         justAListModel.numberOfTripRecords++;
         System.out.println("number of records are: " + justAListModel.numberOfTripRecords + "\n");
+        SwingUtilities.updateComponentTreeUI(this);    //had to add to prevent the Jtable also showing up bottong right south panel
+        
 
     }
 

@@ -1,8 +1,9 @@
 //Name: David DeCosta
-//Date: 10/17/2022
+//Date: 10/26/2022
 //File Name: Main.Java
-/* Program Description:   Created a JFrame that uses a DefaultListModel to store a list of "Ambulance Trips" using a JList.
-                          The program allows you to add/delete/ and edit records as well as saving your list or loading it.
+/* Program Description:   Created a JFrame that uses a DefaultListModel to store a list of "Ambulance Trips" using a JTable.
+                          The program allows you to add/delete/ and edit records as well as saving or loading your file.
+                          The program also implements a Drag and drop feature.
  
  */
 

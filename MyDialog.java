@@ -249,27 +249,27 @@ public class MyDialog extends JDialog
         {
             initialMileageTF.requestFocus();
         }
-        else{
+        else
+        {
 
-        record = new TripRecord();
-        record.name = nameTF.getText();
-        record.serviceCode = (String)comboBox.getSelectedItem();
-        record.comments = commentsTF.getText();
-        tempForMileage = initialMileageTF.getText();
-        record.initialMileage = Integer.parseInt(tempForMileage);
-        tempForMileage = mileageOnReturnTF.getText();
-        record.mileageOnReturn = Integer.parseInt(tempForMileage);
-        tempforBilling = billingRateTF.getText();
-        record.billingRate = Double.parseDouble(tempforBilling);
+            record = new TripRecord();
+            record.name = nameTF.getText();
+            record.serviceCode = (String)comboBox.getSelectedItem();
+            record.comments = commentsTF.getText();
+            tempForMileage = initialMileageTF.getText();
+            record.initialMileage = Integer.parseInt(tempForMileage);
+            tempForMileage = mileageOnReturnTF.getText();
+            record.mileageOnReturn = Integer.parseInt(tempForMileage);
+            tempforBilling = billingRateTF.getText();
+            record.billingRate = Double.parseDouble(tempforBilling);
 
-        tempDate = dateTF.getText();
-        record.date = convertStringToDate(tempDate);
-        dataManager.replace(record,index);
+            tempDate = dateTF.getText();
+            record.date = convertStringToDate(tempDate);
+            dataManager.replace(record,index);
         
-        dispose();
-
+            dispose();
+        }
     }
-}
 
     void handAdd()
     {
@@ -315,22 +315,22 @@ public class MyDialog extends JDialog
             initialMileageTF.requestFocus();
             JOptionPane.showMessageDialog(this, "Inital mileage was less than mileage return!");
         }
-        else{
+        else
+        {
+            record = new TripRecord();
+            record.name = nameTF.getText();
+            record.serviceCode = (String)comboBox.getSelectedItem();
+            record.comments = commentsTF.getText();
+            tempForMileage = initialMileageTF.getText();
+            record.initialMileage = Integer.parseInt(tempForMileage);
+            tempForMileage = mileageOnReturnTF.getText();
+            record.mileageOnReturn = Integer.parseInt(tempForMileage);
+            tempforBilling = billingRateTF.getText();
+            record.billingRate = Double.parseDouble(tempforBilling);
 
-        record = new TripRecord();
-        record.name = nameTF.getText();
-        record.serviceCode = (String)comboBox.getSelectedItem();
-        record.comments = commentsTF.getText();
-        tempForMileage = initialMileageTF.getText();
-        record.initialMileage = Integer.parseInt(tempForMileage);
-        tempForMileage = mileageOnReturnTF.getText();
-        record.mileageOnReturn = Integer.parseInt(tempForMileage);
-        tempforBilling = billingRateTF.getText();
-        record.billingRate = Double.parseDouble(tempforBilling);
-
-        tempDate = dateTF.getText();
-        record.date = convertStringToDate(tempDate);
-        dataManager.add(record);
+            tempDate = dateTF.getText();
+            record.date = convertStringToDate(tempDate);
+            dataManager.add(record);
         }
         dispose();
     }
